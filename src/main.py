@@ -1,7 +1,10 @@
 import os
 import json
+from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+
+from months-list import months
 
 email = os.environ['ED_EMAIL']
 password = os.environ['ED_PASSWORD']
@@ -19,13 +22,17 @@ def login(email, password):
 
 
 def get_expense_amount(expense):
-    import pdb; pdb.set_trace()
     expense_file = open('expenses.json', 'r')
     expense_file.seek(0)
     expenses = json.load(expense_file)
     amount = expenses[expense]
     expense_file.close()
     return amount
+
+
+def get_month():
+    return current_month = months[datetime.now().month]
+
 
 
 

@@ -1,6 +1,7 @@
 lib/
 include/
 bin/
+share/
 pip-selfcheck.json
 .Python
 .vscode
