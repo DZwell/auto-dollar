@@ -1,10 +1,11 @@
 import os
 import json
+import time
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-from months-list import months
+from constants import months
 
 email = os.environ['ED_EMAIL']
 password = os.environ['ED_PASSWORD']
@@ -30,11 +31,22 @@ def get_expense_amount(expense):
     return amount
 
 
-def get_month():
-    return current_month = months[datetime.now().month]
+def get_next_month():
+    return months[datetime.now().month]
+
+
+def click_new_month():
+    next_month = get_next_month()
+    click_month_selector = "document.getElementsByClassName('BudgetNavigation-date')[0].click()"
+    browser.execute_script(click_month_selector)
+    time.sleep(1)
+    browser.find_elements_by_class_name('BudgetNavigation-date')[0].click()
+    browser.find_element_by_xpath(f'//div[text()={next_month}]').click()
+    browser.find_element_by_id('Budget_startPlanning').click()
 
 
 
 
 login(email, password)
+click_new_month()
 get_expense_amount('cable')
